@@ -1,0 +1,101 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    margin: 70px 15px 30px 15px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cards a {
+    text-decoration: none;
+    background: none;
+}
+
+.cards a:hover .card h2{
+    text-decoration: underline;
+}
+
+/* box card */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 323px;
+    margin: 0 0 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.card .row-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.card p {
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+
+.card .box-description {
+    text-align: center;
+    width: 100%;
+    height: 135px;
+    background: rgb(216, 216, 216);
+    margin: 0 0 10px 0;
+}
+
+.card button {
+    width: 100%;
+    height: 46px;
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    background: #285E92;
+    border: 1px solid #285E92;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+@media (min-width: 600px) {
+
+    main {
+        margin: 80px 15px 30px 15px;
+    }
+
+    .card {
+        margin: 10px 10px;
+    }
+}
+
+@media (min-width: 1184px) {
+
+    main {
+        margin: 90px 15px 30px 15px;
+    }
+
+    .cards {
+        width: 1155px;
+        justify-content: start;
+    }
+}

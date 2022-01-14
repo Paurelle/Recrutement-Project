@@ -15,6 +15,10 @@
                 <?php if (!isset($_SESSION['adminId'])) : ?>
                     <li><a href="<?php echo $linkNavHome ?>">Home</a></li>
                     <li><a href="<?php echo $linkNavLogin ?>">Login</a></li>
+                    <li><a href="<?php echo $linkCreateAnnouncement ?>">Create Announcement</a></li>
+                    <li><a href="<?php echo $linkCreateConsultant ?>">Create Consultant</a></li>
+                    <li><a href="<?php echo $linkCandidateProfile ?>">Profile</a></li>
+                    <li><a href="<?php echo $linkRecruiterProfile ?>">Profile</a></li>
                 <?php else : ?>
                     <li><a href="<?php echo $linkNavHome ?>">Home</a></li>
                     <li><a href="<?php echo $linkNavAdminPanel ?>">Admin panel</a></li>

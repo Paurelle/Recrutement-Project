@@ -1,7 +1,7 @@
 
 <?php
-    $linkNavHome = "index.php";
-    $linkNavLogin = "login.php";
+    require_once 'links/links.php';
+
     require_once 'layout/header.php';
 
     require_once 'controllers/troque_chaine.php';
@@ -26,7 +26,7 @@
     <main>
         <section class="cards">
 
-            <a href="">
+            <a href="announcementDetails.php">
                 <article class="card">
                     <form action="" method="POST">
                         <h2>Title</h2>
@@ -46,7 +46,7 @@
                 </article>
             </a>
 
-            <a href="">
+            <a href="announcementDetails.php">
                 <article class="card">
                     <form action="" method="POST">
                         <h2>Title</h2>
@@ -66,7 +66,7 @@
                 </article>
             </a>
 
-            <a href="">
+            <a href="announcementDetails.php">
                 <article class="card">
                     <form action="" method="POST">
                         <h2>Title</h2>
@@ -86,7 +86,7 @@
                 </article>
             </a>
 
-            <a href="">
+            <a href="announcementDetails.php">
                 <article class="card">
                     <form action="" method="POST">
                         <h2>Title</h2>
@@ -106,7 +106,7 @@
                 </article>
             </a>
 
-            <a href="">
+            <a href="announcementDetails.php">
                 <article class="card">
                     <form action="" method="POST">
                         <h2>Title</h2>

@@ -1,7 +1,7 @@
 
 <?php
-    $linkNavHome = "index.php";
-    $linkNavLogin = "login.php";
+    require_once 'links/links.php';
+    
     require_once 'layout/header.php';
 
     require_once 'controllers/troque_chaine.php';

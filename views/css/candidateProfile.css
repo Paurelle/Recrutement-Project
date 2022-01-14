@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    margin: 70px 15px 30px 15px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 323px;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.card h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 20px 0 20px 0 ;
+}
+
+/* Input card */
+
+.card .input-card {
+    margin: 5px 0 5px 0;
+}
+
+.card .row-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Button */
+
+.card .modify-btn button {
+    width: 70px;
+    height: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    background: #285E92;
+    border: 1px solid #285E92;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #164081;
+}
+
+@media (min-width: 600px) {
+
+    main {
+        margin: 80px 15px 30px 15px;
+    }
+
+    .card h1 {
+        font-size: 50px;
+        margin: 20px 0 60px 0 ;
+    }
+
+    .card {
+        width: 450px;
+        height: auto;
+        
+    }
+
+    .card .row-card {
+        padding: 0 40px;
+        box-sizing: border-box;
+    }
+
+    .card .modify-btn button {
+        width: 80px;
+        height: 25px;
+    }
+}
+
+@media (min-width: 952px) {
+
+    main {
+        margin: 90px 15px 30px 15px;
+    }
+
+    .card h1 {
+        font-size: 64px;
+        margin: 20px 0 80px 0 ;
+    }
+
+    .card {
+        width: 567px;
+    }
+
+    .card .row-card p {
+        font-size: 18px;
+    }
+
+    .card .modify-btn button {
+        width: 96px;
+        height: 30px;
+        font-size: 18px;
+    }
+    
+}

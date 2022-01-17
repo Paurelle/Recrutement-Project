@@ -1,4 +1,5 @@
 
+
 <?php
     require_once 'links/links.php';
 
@@ -14,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="views/css/header/navbar.css">
-    <link rel="stylesheet" href="views/css/home.css">
+    <link rel="stylesheet" href="views/css/validateAnnouncement.css">
     
     <title>Home</title>
 </head>
@@ -24,9 +25,7 @@
 
     <!-- Main -->
     <main>
-
-        <h1>Announcement</h1>
-
+        <h1>Validate Announcement</h1>
         <section class="cards">
 
             <a href="announcementDetails.php">
@@ -44,7 +43,10 @@
                         <div class="box-description">
                             <p>job description</p>
                         </div>
-                        <button>Apply</button>
+                        <div class="row-card">
+                            <button class="validate-btn">Validate</button>
+                            <button class="refuse-btn">Refuse</button>
+                        </div>
                     </form>
                 </article>
             </a>
@@ -64,7 +66,10 @@
                         <div class="box-description">
                             <p>job description</p>
                         </div>
-                        <button>Apply</button>
+                        <div class="row-card">
+                            <button class="validate-btn">Validate</button>
+                            <button class="refuse-btn">Refuse</button>
+                        </div>
                     </form>
                 </article>
             </a>
@@ -84,50 +89,14 @@
                         <div class="box-description">
                             <p>job description</p>
                         </div>
-                        <button>Apply</button>
+                        <div class="row-card">
+                            <button class="validate-btn">Validate</button>
+                            <button class="refuse-btn">Refuse</button>
+                        </div>
                     </form>
                 </article>
             </a>
 
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
-
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
 
         </section>
     </main>
@@ -140,6 +109,21 @@
     <script src="views/js/btn-mobile.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

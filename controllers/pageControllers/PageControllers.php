@@ -41,4 +41,19 @@ class Controller
     {
         require_once 'views/announcementDetails.php';
     }
+
+    public function validateAnnouncement()
+    {
+        require_once 'views/validateAnnouncement.php';
+    }
+    
+    public function validateAccount()
+    {
+        require_once 'views/validateAccount.php';
+    }
+
+    public function validateApply()
+    {
+        require_once 'views/validateApply.php';
+    }
 }

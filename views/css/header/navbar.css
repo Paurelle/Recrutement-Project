@@ -65,6 +65,34 @@ header {
     display: none;
 }
 
+.validate {
+    cursor: pointer;
+    display: block;
+    padding: .5rem;
+    position: relative;
+    
+}
+.validate:hover {
+    background: rgba(0, 0, 0, .05);
+    text-decoration: underline;
+    border-radius: 6px;
+    
+}
+
+.validate:hover .under-menu{
+    display: block;
+}
+
+.under-menu {
+    display: none;
+    position: absolute;
+    left: -10px;
+    transform: translate(50% 0);
+    list-style-type: none;
+    padding: 0.5rem;
+    width: 200px;
+}
+
 @media (max-width: 1280px) {
     .row {
         min-width: 900px;
@@ -144,6 +172,19 @@ header {
         transform: rotate(-135deg);
         top: -7px;
     }
+
+    
+    .validate {
+        padding: 1rem 0;
+        margin: 0 1rem;
+    }
+
+    .under-menu {
+        position: relative;
+        padding: 1rem 0 0 0;
+        margin: 0 1rem;
+    }
+
 
 }
 

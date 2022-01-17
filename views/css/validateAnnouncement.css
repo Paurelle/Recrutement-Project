@@ -6,9 +6,9 @@
 
 main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin: 70px 15px 30px 15px;
 }
 
@@ -72,13 +72,13 @@ h1 {
     margin: 0 0 10px 0;
 }
 
-.card button {
-    width: 100%;
-    height: 46px;
+
+.card .validate-btn {
+    width: 155px;
+    height: 30px;
     color: white;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 33px;
+    font-size: 18px;
     background: #285E92;
     border: 1px solid #285E92;
     box-sizing: border-box;
@@ -87,8 +87,25 @@ h1 {
 }
 
 
-.card button:hover {
+.card .validate-btn:hover {
     background: #164081;
+}
+
+.card .refuse-btn {
+    width: 155px;
+    height: 30px;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    background: #DF5C50;
+    border: 1px solid #DF5C50;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card .refuse-btn:hover {
+    background: #811616;
 }
 
 @media (min-width: 600px) {

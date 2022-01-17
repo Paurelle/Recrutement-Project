@@ -48,53 +48,9 @@ main {
 
 .card .row-card {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-}
-
-.card h2 {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 10px 0;
-}
-
-.card p {
-    font-size: 18px;
-    margin: 0 0 5px 0;
-}
-
-.card .box-description {
-    text-align: center;
-    width: 100%;
-    min-height: 135px;
-    background: rgb(216, 216, 216);
-    margin: 0 0 10px 0;
-}
-
-.card button {
-    width: 100%;
-    height: 46px;
-    color: white;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 33px;
-    background: #285E92;
-    border: 1px solid #285E92;
-    box-sizing: border-box;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-
-.card form button:hover{
-    background: #164081;
-}
-
-
-/* box-candidate-apply */
-
-.card .box-candidate-apply .title {
-    text-align: center;
-    margin: 25px 0 0 0;
 }
 
 /* table */
@@ -105,7 +61,7 @@ main {
     margin: 20px 0;
     border: 1px solid black;
     table-layout: fixed;
-    width: 323px;
+    width: 330px;
 }
 
 .list-candidate thead tr {
@@ -133,36 +89,14 @@ main {
     background: #cecece50;
 }
 
-.list-candidate button {
-    width: 87px;
+/* btn validate */
+
+.card .validate-btn {
+    width: 70px;
     height: 20px;
     color: white;
     font-weight: 600;
     font-size: 14px;
-    line-height: 0;
-    background: #285E92;
-    border: 1px solid #285E92;
-    box-sizing: border-box;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.list-candidate button:hover{
-    background: #164081;
-}
-
-/* btn validate */
-
-.card .vr {
-    margin: 20px 0;
-}
-
-.card .validate-btn {
-    width: 155px;
-    height: 30px;
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
     background: #285E92;
     border: 1px solid #285E92;
     box-sizing: border-box;
@@ -176,11 +110,11 @@ main {
 }
 
 .card .refuse-btn {
-    width: 155px;
-    height: 30px;
+    width: 70px;
+    height: 20px;
     color: white;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 14px;
     background: #DF5C50;
     border: 1px solid #DF5C50;
     box-sizing: border-box;
@@ -190,6 +124,10 @@ main {
 
 .card .refuse-btn:hover {
     background: #811616;
+}
+
+.list-candidate tbody .td-action button {
+    margin: 2px 0;
 }
 
 
@@ -207,10 +145,6 @@ main {
 
     .card {
         width: 450px;
-    }
-
-    form {
-        padding: 0 40px;
     }
 
     .card .box-candidate-apply {
@@ -247,20 +181,25 @@ main {
         width: 567px;
     }
 
-    .card .box-candidate-apply, .vr, form  {
-        padding: 0 90px;
+    .card .box-candidate-apply {
+        padding: 0 70px;
     }
 
     .list-candidate {
-        width: 387px;
-    }
-
-    .list-candidate button {
-        width: 100px;
-        height: 25px;
+        width: 427px;
     }
 
     .list-candidate tbody td {
         font-size: 18px;
+    }
+
+    .card .validate-btn, .card .refuse-btn {
+        width: 90px;
+        height: 30px;
+        font-size: 18px;
+    }
+    
+    .list-candidate tbody .td-action button {
+        margin: 5px 0;
     }
 }

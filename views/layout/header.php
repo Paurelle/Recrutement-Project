@@ -19,6 +19,15 @@
                     <li><a href="<?php echo $linkCreateConsultant ?>">Create Consultant</a></li>
                     <li><a href="<?php echo $linkCandidateProfile ?>">Profile</a></li>
                     <li><a href="<?php echo $linkRecruiterProfile ?>">Profile</a></li>
+                    <li class="validate">Validate
+                        <ul class="under-menu">
+                            <li><a href="<?php echo $linkValidateAnnouncement ?>">Validate Announcement</a></li>
+                            <li><a href="<?php echo $linkValidateAccount ?>">Validate Account</a></li>
+                            <li><a href="<?php echo $linkValidateApply ?>">Validate Apply</a></li>
+                        </ul>
+                    </li>
+                    
+                    
                 <?php else : ?>
                     <li><a href="<?php echo $linkNavHome ?>">Home</a></li>
                     <li><a href="<?php echo $linkNavAdminPanel ?>">Admin panel</a></li>

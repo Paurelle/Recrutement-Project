@@ -14,9 +14,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="views/css/header/navbar.css">
-    <link rel="stylesheet" href="views/css/announcementDetails.css">
+    <link rel="stylesheet" href="views/css/validateApply.css">
     
-    <title>Announcement Detail</title>
+    <title>Validate Apply</title>
 </head>
 <body>
     <!-- Header -->
@@ -27,42 +27,31 @@
         <section class="cards">
 
             <article class="card">
-                <h1>Announcement Detail</h1>
-                <form action="" method="POST">
-                    <h2 class="title">Title</h2>
-                    <div class="row-card">
-                        <p>company name</p>
-                        <p>Salary</p>
-                    </div>
-                    <div class="row-card">
-                        <p>workplace</p>
-                        <p>schedule</p>
-                    </div>
-                    <div class="box-description">
-                        <p>job description</p>
-                    </div>
-                    <button>Apply</button>
-                </form>
-                <div class="row-card vr">
-                    <button class="validate-btn">Validate</button>
-                    <button class="refuse-btn">Refuse</button>
-                </div>
+                <h1>Validate Apply</h1>
                 <div class="box-candidate-apply">
-                    <h2 class="title">Candidate who we apply</h2>
                     <div class="table-content">
                         <table class="list-candidate">
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Lastname</th>
-                                    <th>CV</th>
+                                    <th>Company name</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="td-name">paurellepaurellepaurellepaurelle</td>
-                                    <td class="td-lastname">paurellepaurellepaurellepaurelle</td>
-                                    <td class="td-cv"><button>Download</button></td>
+                                    <td class="td-name">paurelle</td>
+                                    <td class="td-lastname">threy</td>
+                                    <td class="td-cname">forge</td>
+                                    <td class="td-action">
+                                        <form action="">
+                                            <div class="row-card">
+                                                <button class="validate-btn">Validate</button>
+                                                <button class="refuse-btn">Refuse</button>
+                                            </div>
+                                        </form>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -62,6 +62,25 @@
                             </form>
                         </article>
                     </a>
+
+                    <a href="announcementDetails.php">
+                        <article class="card-2">
+                            <form action="" method="POST">
+                                <h2>Title</h2>
+                                <div class="row-card-2">
+                                    <p>company name</p>
+                                    <p>Salary</p>
+                                </div>
+                                <div class="row-card-2">
+                                    <p>workplace</p>
+                                    <p>schedule</p>
+                                </div>
+                                <div class="box-description">
+                                    <p>job description</p>
+                                </div>
+                            </form>
+                        </article>
+                    </a>
                 </section>
             </article>
 

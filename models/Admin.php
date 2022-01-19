@@ -1,144 +1,59 @@
 <?php
 
-require_once 'DataBase.php';
+require_once 'Database.php';
 
 class Admin {
-
-    private $bdd;
+    
+    private $db;
 
     public function __construct(){
-        $this->bdd = new Database;
+        $this->db = new Database;
     }
 
-    public function getAllAdmins(){
-        $this->bdd->prepare('SELECT * FROM administrateurs');
+    //Find user by email or username
+    public function findUserByEmail($email){
+        $this->db->query('SELECT * FROM users WHERE Email = :email');
+        $this->db->bind(':email', $email);
 
-        $row = $this->bdd->resultSet();
+        $row = $this->db->single();
 
-        return $row;
+        //Check row
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
     }
 
-    public function getSpecificAdmin($value){
-        $this->bdd->prepare('SELECT * FROM administrateurs WHERE nom = :value');
-
-        $this->bdd->bind(':value', $value);
-
-        $row = $this->bdd->single();
-
-        return $row;
-    }
-
+    //Register User
     public function register($data){
-
-        $this->bdd->prepare('INSERT INTO administrateurs (nom, prenom, email, mdp, date_creation) VALUES (:name, :lastname, :email, :password, :creationDate)');
+        $this->db->query('INSERT INTO users (Id_Role, Email, Password) 
+        VALUES (:role, :email, :password)');
         //Bind values
-        $this->bdd->bind(':name', $data['name']);
-        $this->bdd->bind(':lastname', $data['lastname']);
-        $this->bdd->bind(':email', $data['email']);
-        $this->bdd->bind(':password', $data['password']);
-        $this->bdd->bind(':creationDate', date("Y-m-d H:i:s"));
+        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password', $data['password']);
 
         //Execute
-        if($this->bdd->execute()){
+        if($this->db->execute()){
             return true;
         }else{
             return false;
         }
     }
 
-    public function modify($data){
-        $this->bdd->prepare('UPDATE administrateurs SET nom = :name, prenom = :lastname, email = :email, mdp = :password WHERE email = :email');
+    //Register recruiter
+    public function registerConsultant($id_user){
+        $this->db->query('INSERT INTO consultants (Id_User) 
+        VALUES (:id_user)');
         //Bind values
-        $this->bdd->bind(':name', $data['name']);
-        $this->bdd->bind(':lastname', $data['lastname']);
-        $this->bdd->bind(':email', $data['email']);
-        $this->bdd->bind(':password', $data['password']);
-        
+        $this->db->bind(':id_user', $id_user);
+
         //Execute
-        if($this->bdd->execute()){
+        if($this->db->execute()){
             return true;
         }else{
             return false;
         }
-    }
-
-    public function delete($data){
-        $this->bdd->prepare('DELETE FROM administrateurs WHERE nom = :name');
-        //Bind values
-        $this->bdd->bind(':name', $data['name']);
-
-        //Execute
-        if($this->bdd->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function login($adminName, $adminLastname, $email, $password){
-        $row = $this->findAdminByInfo($adminName, $adminLastname, $email);
-
-        if($row == false) return false;
-        
-        $hashedPassword = $row->{'mdp'};
-        
-        if(password_verify($password, $hashedPassword)){
-            return $row;
-        }else{
-            return false;
-        }
-    }
-
-    public function findAdminByInfo($adminName, $adminLastname, $email){
-        $this->bdd->prepare('SELECT * FROM administrateurs WHERE nom = :adminName AND prenom = :adminLastname AND email = :email');
-        
-        $this->bdd->bind(':adminName', $adminName);
-        $this->bdd->bind(':adminLastname', $adminLastname);
-        $this->bdd->bind(':email', $email);
-
-        $row = $this->bdd->single();
-        //Check row
-        if($this->bdd->rowCount() > 0){
-            return $row;
-        }else{
-            return false;
-        }
-    }
-
-    public function findAdminByEmail($email){
-        $this->bdd->prepare('SELECT * FROM administrateurs WHERE email = :email');
-        $this->bdd->bind(':email', $email);
-
-        $row = $this->bdd->single();
-        //Check row
-        if($this->bdd->rowCount() > 0){
-            return $row;
-        }else{
-            return false;
-        }
-    }
-    
-    public function ajaxRequest(){
-        $bdd = new Database;
-        $valeur = $_POST['valeur'];
-        $bdd->prepare('SELECT * FROM administrateurs WHERE nom = :valeur');
-        $bdd->bind(':valeur', $valeur);
-        $row = $bdd->resultSet();
-
-        foreach($row as $rows){
-            $maReponse = array('name' => $rows->nom, 'lastname' => $rows->prenom, 'email' => $rows->email);
-            
-        }
-        echo json_encode($maReponse);
-    }
-    
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $init = new Admin();
-    switch ($_POST['type']) {
-        case 'ajaxRequest':
-            $init->ajaxRequest();
-            break;
     }
 }

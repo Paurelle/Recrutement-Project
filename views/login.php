@@ -3,8 +3,10 @@
     require_once 'links/links.php';
     
     require_once 'layout/header.php';
+    require_once 'Controllers/Helpers/session_helper.php';
 
-    require_once 'controllers/troque_chaine.php';
+    if (!isset($_SESSION['usersId'])) {
+
 ?>
 
 <!DOCTYPE html>
@@ -27,15 +29,17 @@
         <section class="cards">
 
             <article class="card">
-                <form action="" method="POST">
-                    <h1>Log in</h1>
+                <h1>Log in</h1>
+                <?php flash('login'); ?>
+                <form action="controllers/Users.php" method="POST">
+                    <input type="hidden" name="type" value="login">
                     <div class="input-card">
                         <label for="email">Email</label>
-                        <input id="email" type="text">
+                        <input id="email" type="text" name="email">
                     </div>
                     <div class="input-card">
                         <label for="password">Password</label>
-                        <input id="password" type="password">
+                        <input id="password" type="password" name="password">
                     </div>
                     <div class="login-btn">
                         <button>Login</button>
@@ -58,15 +62,10 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-
+<?php
+    }else{
+        redirect("index.php");
+    }
 
 
 

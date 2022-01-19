@@ -27,6 +27,15 @@
 
         <h1>Announcement</h1>
 
+        <?php if (!isset($_SESSION['usersId'])) : ?>
+            <p>non conecter</p>
+            
+            <?php else : ?>
+            <p>Welcome, <?php echo explode(" ", $_SESSION['usersEmail'])[0];?></p>
+            <?= $_SESSION['usersRole'] ?>
+            
+        <?php endif; ?>
+
         <section class="cards">
 
             <a href="announcementDetails.php">

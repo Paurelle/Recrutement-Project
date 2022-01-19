@@ -3,8 +3,9 @@
     require_once 'links/links.php';
     
     require_once 'layout/header.php';
+    require_once 'Controllers/Helpers/session_helper.php';
 
-    require_once 'controllers/troque_chaine.php';
+    if (!isset($_SESSION['usersId'])) {
 ?>
 
 <!DOCTYPE html>
@@ -27,35 +28,36 @@
         <section class="cards">
 
             <article class="card">
-                <form action="" method="POST">
-                    <h1>Register</h1>
+                <h1>Register</h1>
+                <?php flash('register'); ?>
+                <form action="controllers/Users.php" method="POST">
+                    <input type="hidden" name="type" value="register">
                     <div class="input-card">
                         <label for="email">Email</label>
-                        <input id="email" type="text">
+                        <input id="email" type="text" name="email">
                     </div>
                     <div class="input-card">
                         <label for="password">Password</label>
-                        <input id="password" type="password">
+                        <input id="password" type="password" name="password">
                     </div>
                     <div class="input-card">
                         <label for="confirm-password">Confirm Password</label>
-                        <input id="confirm-password" type="password">
+                        <input id="confirm-password" type="password" name="confirm-password">
                     </div>
                     <div class="input-radio">
                         <p>Your role</p>
                         <label for="employer" class="radio-card">
-                            <input id="employer" type="radio" name="role">
+                            <input id="employer" type="radio" name="role" value="1">
                             <span>Employer</span>
                         </label>
                         <label for="job-seekers" class="radio-card">
-                            <input id="job-seekers" type="radio" name="role">
+                            <input id="job-seekers" type="radio" name="role" value="2">
                             <span>Job seekers</span>
                         </label>
                     </div>
                     <div class="register-btn">
                         <button>Register</button>
                     </div>
-                    
                 </form>
             </article>
 
@@ -72,7 +74,10 @@
 </html>
 
 
-
+<?php
+    }else{
+        redirect("index.php");
+    }
 
 
 

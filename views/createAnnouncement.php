@@ -3,8 +3,9 @@
     require_once 'links/links.php';
     
     require_once 'layout/header.php';
+    require_once 'Controllers/Helpers/session_helper.php';
 
-    require_once 'controllers/troque_chaine.php';
+    if (isset($_SESSION['usersId']) && $_SESSION['usersRole'] == 1) {
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +68,10 @@
 </body>
 </html>
 
-
+<?php
+    }else{
+        redirect("index.php");
+    }
 
 
 

@@ -13,19 +13,19 @@
             </button>
             <ul class="menu" role="menu">
                 <li><a href="<?php echo $linkNavHome ?>">Home</a></li>
-                <?php if (!isset($_SESSION['usersId'])) : ?>
+                <?php if (!isset($_SESSION['userId'])) : ?>
                     <li><a href="<?php echo $linkNavLogin ?>">Login</a></li>
 
-                <?php elseif ($_SESSION['usersRole'] == 1) : ?>
+                <?php elseif ($_SESSION['userRole'] == 1) : ?>
                     <li><a href="<?php echo $linkCreateAnnouncement ?>">Create Announcement</a></li>
                     <li><a href="<?php echo $linkRecruiterProfile ?>">Profile</a></li>
                     <li><a href="controllers/Users.php?q=logout">Logout</a></li>
 
-                <?php elseif ($_SESSION['usersRole'] == 2) : ?>
+                <?php elseif ($_SESSION['userRole'] == 2) : ?>
                     <li><a href="<?php echo $linkCandidateProfile ?>">Profile</a></li>
                     <li><a href="controllers/Users.php?q=logout">Logout</a></li>
 
-                <?php elseif ($_SESSION['usersRole'] == 3) : ?>
+                <?php elseif ($_SESSION['userRole'] == 3) : ?>
                     <li class="validate">Validate
                         <ul class="under-menu">
                             <li><a href="<?php echo $linkValidateAnnouncement ?>">Validate Announcement</a></li>
@@ -35,7 +35,7 @@
                     </li>
                     <li><a href="controllers/Users.php?q=logout">Logout</a></li>
 
-                <?php elseif ($_SESSION['usersRole'] == 4) : ?>
+                <?php elseif ($_SESSION['userRole'] == 4) : ?>
                     <li class="validate">Validate
                         <ul class="under-menu">
                             <li><a href="<?php echo $linkValidateAnnouncement ?>">Validate Announcement</a></li>

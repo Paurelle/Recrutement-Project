@@ -5,7 +5,7 @@
     require_once 'layout/header.php';
     require_once 'Controllers/Helpers/session_helper.php';
 
-    if (isset($_SESSION['usersId']) && $_SESSION['usersRole'] == 4) {
+    if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 4) {
     
 ?>
 

@@ -5,7 +5,7 @@
     require_once 'layout/header.php';
     require_once 'Controllers/Helpers/session_helper.php';
 
-    if (!isset($_SESSION['usersId'])) {
+    if (!isset($_SESSION['userId'])) {
 
 ?>
 

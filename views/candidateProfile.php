@@ -5,7 +5,12 @@
     require_once 'layout/header.php';
     require_once 'Controllers/Helpers/session_helper.php';
 
-    if (isset($_SESSION['usersId']) && $_SESSION['usersRole'] == 2) {
+    require_once 'models/User.php';
+
+    $userModel = new User;
+    $userInfo = $userModel->findUserInfoCandidate($_SESSION['userId']);
+
+    if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 2) {
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="views/css/header/navbar.css">
     <link rel="stylesheet" href="views/css/candidateProfile.css">
+    <script type="text/javascript" src="views/js/jquery-3.6.0.min.js"></script>
     
     <title>Candidate profile</title>
 </head>
@@ -29,17 +35,52 @@
 
             <article class="card">
                 <h1>Candidate profile</h1>
-                <div class="row-card">
-                    <p>Name Lastname</p>
-                    <div class="modify-btn">
-                        <button>Modify</button>
+                <?php flash('profile'); ?>
+                <div id="profil">
+                    <div class="row-card">
+                        <?php if ($userInfo->Name == null || $userInfo->Lastname == null) : ?>
+                            <h2>Anunimous</h2>
+                        <?php else : ?>
+                            <h2><?=$userInfo->Name ." ". $userInfo->Lastname?></h2>
+                        <?php endif; ?>
+                        <div class="modify-btn">
+                            <button onclick="display_form()">Modify</button>
+                        </div>
+                    </div>
+                    <div class="row-card">
+                        <p>Email : <?=$userInfo->Email?></p>
+                    </div>
+                    <div class="row-card">
+                        <p>CV : <?=$userInfo->Cv_Name?></p>
                     </div>
                 </div>
-                <div class="row-card">
-                    <p>Email</p>
-                </div>
-                <div class="row-card">
-                    <p>CV</p>
+                
+                <div id="form-profil" style="display: none;">
+                    <form action="controllers/Candidates.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="type" value="modify">
+                        <div class="input-card">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" name="name">
+                        </div>
+                        <div class="input-card">
+                            <label for="lastename">Lastname</label>
+                            <input id="lastename" type="text" name="lastname">
+                        </div>
+                        <div class="input-card">
+                            <label for="email">Email</label>
+                            <input id="email" type="text" name="email">
+                        </div>
+                        <div class="input-card">
+                            <label for="cv">Cv</label>
+                            <input id="cv" type="file" name="cv">
+                        </div>
+                        <div class="modify-profile-btn">
+                            <div class="row-card">
+                                <button type="submit">Validate</button>
+                                <button type="button" onclick="display_form()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </article>
 
@@ -52,6 +93,7 @@
     </footer>
 
     <script src="views/js/btn-mobile.js"></script>
+    <script src="views/js/display_form_candidate.js"></script>
 </body>
 </html>
 

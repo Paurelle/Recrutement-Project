@@ -13,120 +13,114 @@
             $this->candidateModel = new Candidate;
         }
 
-        public function register(){
-            
-            // Process form
+        public function displayProfile() {
+            if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 2) {
+                $row = $this->candidateModel->displayProfile($_SESSION['userId']);
+                if ($row) {
 
-            // Init data
-            $data = [
-                'role' => "candidate",
-                'email' => trim($_SESSION["post"]["email"]),
-                'password' => trim($_SESSION["post"]["password"]),
-                'confirm-password' => trim($_SESSION["post"]["confirm-password"]),
-                'is_checked' => 0
-            ];
-
-            unset($_SESSION["post"]);
-
-            // Validate inputs
-            if (empty($data['email']) ||
-            empty($data['password']) || empty($data['confirm-password'])) {
-                flash("register", "Veuillez remplir toutes les entrées");
-                redirect("../register.php");
-            }
-
-            if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-                flash("register", "Email invalide");
-                redirect("../register.php");
-            }
-
-            if(strlen($data['password']) < 6){
-                flash("register", "Mot de passe incorrect");
-                redirect("../register.php");
-            } else if($data['password'] !== $data['confirm-password']){
-                flash("register", "Les mots de passe ne correspondent pas");
-                redirect("../register.php");
-            }
-
-            //User with the same email or password already exists
-            if($this->candidateModel->findCandidateByEmail($data['email'])){
-                flash("register", "email déjà pris");
-                redirect("../register.php");
-            }
-
-            //Passed all validation checks.
-            //Now going to hash password
-            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-            //Register User
-            if($this->candidateModel->register($data)){
-                redirect("../login.php");
-            }else{
-                die("Something went wrong");
-            }
-            
-        }
-
-        public function login(){
-            //Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-            //Init data
-            $data=[
-                'name/email' => trim($_POST['name/email']),
-                'usersPwd' => trim($_POST['usersPwd'])
-            ];
-    
-            if(empty($data['name/email']) || empty($data['usersPwd'])){
-                flash("login", "Veuillez remplir toutes les entrées");
-                redirect("../login.php");
-                
-            }
-    
-            //Check for user/email
-            if($this->candidateModel->findCandidateByEmail($data['email'])){
-                //User Found
-                $loggedInUser = $this->candidateModel->login($data['name/email'], $data['usersPwd']);
-                if($loggedInUser){
-                    //Create session
-                    $this->createUserSession($loggedInUser);
-                }else{
-                    flash("login", "Mot de passe incorrect");
-                    redirect("../login.php");
+                    $Info_Profile = array('name' => $row->Name, 'lastname' => $row->Lastname, 'email' => $row->Email, 'cv' => $row->CV_Name);
+                    
+                    echo json_encode($Info_Profile);
                 }
-            }else{
-                flash("login", "Aucun utilisateur trouvé");
-                redirect("../login.php");
             }
         }
         
-        public function createUserSession($user){
-            $_SESSION['usersId'] = $user->users_id;
-            $_SESSION['usersName'] = $user->users_name;
-            $_SESSION['usersEmail'] = $user->users_email;
-            redirect("../index.php");
+        public function modifyProfile()
+        {
+            // Process form
+
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Init data
+            $data = [
+                'userId' => $_SESSION['userId'],
+                'name' => trim($_POST['name']),
+                'lastname' => trim($_POST['lastname']),
+                'email' => trim($_POST['email']),
+                'cv' => $_FILES['cv'],
+                'cvName' => "",
+                'cvId' => "",
+            ];
+            
+            // Validate inputs
+            if (empty($data['name']) || empty($data['lastname']) ||
+            empty($data['email']) || empty($data['cv']['name'])) {
+                flash("profile", "Veuillez remplir toutes les entrées");
+                redirect("../candidateProfile.php");
+            }
+
+            if(!preg_match("/^[a-zA-Zéèçàê ]*$/", $data['name'])){
+                flash("profile", "Invalid name");
+                redirect("../candidateProfile.php");
+            }
+
+            if(!preg_match("/^[a-zA-Zéèçàê ]*$/", $data['lastname'])){
+                flash("profile", "Invalid lastname");
+                redirect("../candidateProfile.php");
+            }
+
+            if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+                flash("profile", "Email invalide");
+                redirect("../candidateProfile.php");
+            }
+
+            //User with the same email or password already exists
+            if($this->candidateModel->findUserByEmail($data['email']) && $data['email'] != $_SESSION['userEmail']){
+                flash("profile", "Email déjà pris");
+                redirect("../candidateProfile.php");
+            }
+
+            // You should also check filesize here.
+            if ($data['cv']['size'] > 1000000) {
+                flash("profile", "la taille du cv et tro volumineu");
+                redirect("../candidateProfile.php");
+            }
+
+            if (substr(strrchr($data['cv']['name'],'.'),1) != "pdf") {
+                flash("profile", "se nest pas le bon forma 'pdf'");
+                redirect("../candidateProfile.php");
+            }
+
+            //pdf file processing
+
+            // name is 'id_user.extension
+            $fileNameId = $_SESSION['userId'].strrchr($data['cv']['name'],'.');
+
+            $file_tmp_name = $data['cv']['tmp_name'];
+            $file_dest = '../filesCv/'.$fileNameId;
+            if (!move_uploaded_file($file_tmp_name, $file_dest)) {
+                flash("profile", "une erreur c produit");
+                redirect("../candidateProfile.php");
+            }
+
+            $data['cvId'] =  $fileNameId;
+            $data['cvName'] = $data['cv']['name'] ;
+            
+            // save new email in session
+            $_SESSION['userEmail'] = $data['email'];
+
+            //Register User
+            if($this->candidateModel->updateProfile($data)){
+                flash("profile", "is good");
+                redirect("../candidateProfile.php");
+            }else{
+                die("Something went wrong");
+            }
         }
-    
-        public function logout(){
-            unset($_SESSION['usersId']);
-            unset($_SESSION['usersName']);
-            unset($_SESSION['usersEmail']);
-            session_destroy();
-            redirect("../index.php");
-        }
+
     }
 
     $init = new Candidates;
     
-    switch ($_SESSION["post"]['type']) {
-        case 'register':
-            $init->register();
+    switch ($_POST['type']) {
+        case 'displayProfile':
+            $init->displayProfile();
             break;
-        case 'login':
-            $init->login();
+        case 'modify':
+            $init->modifyProfile();
             break;
         default:
-            unset($_SESSION["post"]);
             redirect("../index.php");
     }
 

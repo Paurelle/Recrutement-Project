@@ -9,8 +9,36 @@ class User {
     public function __construct(){
         $this->db = new Database;
     }
+    
+    public function findUserInfoCandidate($id_user){
+        $this->db->query('SELECT Email, Name, Lastname, Cv_Name  FROM users, candidates WHERE users.Id_User = :id_user and candidates.Id_User = :id_user');
+        $this->db->bind(':id_user', $id_user);
 
-    //Find user by email or username
+        $row = $this->db->single();
+
+        //Check row
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function findUserInfoRecruiter($id_user){
+        $this->db->query('SELECT Email, Company_Name, Address FROM users, recruiters WHERE recruiters.Id_User = :id_user AND users.Id_User = :id_user');
+        $this->db->bind(':id_user', $id_user);
+
+        $row = $this->db->single();
+
+        //Check row
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    //Find user by email
     public function findUserByEmail($email){
         $this->db->query('SELECT * FROM users WHERE Email = :email');
         $this->db->bind(':email', $email);

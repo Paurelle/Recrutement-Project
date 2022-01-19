@@ -27,12 +27,12 @@
 
         <h1>Announcement</h1>
 
-        <?php if (!isset($_SESSION['usersId'])) : ?>
+        <?php if (!isset($_SESSION['userId'])) : ?>
             <p>non conecter</p>
             
             <?php else : ?>
-            <p>Welcome, <?php echo explode(" ", $_SESSION['usersEmail'])[0];?></p>
-            <?= $_SESSION['usersRole'] ?>
+            <p>Welcome, <?php echo explode(" ", $_SESSION['userEmail'])[0];?></p>
+            <?= $_SESSION['userRole'] ?>
             
         <?php endif; ?>
 

@@ -113,16 +113,16 @@
         }
         
         public function createUserSession($user){
-            $_SESSION['usersId'] = $user->Id_User;
-            $_SESSION['usersRole'] = $user->Id_Role;
-            $_SESSION['usersEmail'] = $user->Email;
+            $_SESSION['userId'] = $user->Id_User;
+            $_SESSION['userRole'] = $user->Id_Role;
+            $_SESSION['userEmail'] = $user->Email;
             redirect("../index.php");
         }
     
         public function logout(){
-            unset($_SESSION['usersId']);
-            unset($_SESSION['usersRole']);
-            unset($_SESSION['usersEmail']);
+            unset($_SESSION['userId']);
+            unset($_SESSION['userRole']);
+            unset($_SESSION['userEmail']);
             session_destroy();
             redirect("../index.php");
         }

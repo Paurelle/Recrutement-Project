@@ -34,10 +34,32 @@ main {
     margin: 20px 0 20px 0 ;
 }
 
+.card #profil h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0 ;
+    font-weight: 600;
+}
+
 /* Input card */
 
 .card .input-card {
     margin: 5px 0 5px 0;
+}
+
+.card .input-card input {
+    width: 100%;
+    height: 46px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.card .input-card label {
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .card .row-card {
@@ -46,6 +68,7 @@ main {
 }
 
 /* Button */
+
 
 .card .modify-btn button {
     width: 70px;
@@ -56,6 +79,21 @@ main {
     background: #285E92;
     border: 1px solid #285E92;
     box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card .modify-profile-btn button {
+    width: 150px;
+    height: 46px;
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    background: #285E92;
+    border: 1px solid #285E92;
+    box-sizing: border-box;
+    margin: 20px 0 10px 0;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -105,6 +143,7 @@ main {
 .card .box-announcement a:hover .card-2 h2{
     text-decoration: underline;
 }
+
 
 .card-2 {
     display: flex;
@@ -163,10 +202,23 @@ main {
         margin: 20px 0 60px 0 ;
     }
 
+    .card #profil h2 {
+        font-size: 26px;
+    }
+
     .card {
         width: 450px;
         height: auto;
         
+    }
+
+    .card .input-card {
+        margin: 10px 0 10px 0;
+        padding: 0 40px;
+    }
+
+    .card .modify-profile-btn .row-card {
+        padding: 0 40px;
     }
 
     .card .row-card {
@@ -209,6 +261,14 @@ main {
 
     .card {
         width: 567px;
+    }
+
+    .card .modify-profile-btn .row-card {
+        padding: 0 90px;
+    }
+
+    .card .input-card {
+        padding: 0 90px;
     }
 
     .card .row-card p {

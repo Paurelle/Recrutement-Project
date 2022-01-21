@@ -63,10 +63,11 @@ main {
 }
 
 .card .box-description {
-    text-align: center;
+    text-align: left;
     width: 100%;
-    min-height: 135px;
-    background: rgb(216, 216, 216);
+    border-top: 1px solid black;
+    padding: 5px 0 0 0;
+    height: auto;
     margin: 0 0 10px 0;
 }
 
@@ -192,6 +193,13 @@ main {
     background: #811616;
 }
 
+.card .row-card p:nth-child(1) {
+    width: 190px;
+}
+.card .row-card p:nth-child(2) {
+    width: 90px;
+    text-align: right;
+}
 
 
 @media (min-width: 600px) {
@@ -247,6 +255,14 @@ main {
         width: 567px;
     }
 
+    .card .row-card p:nth-child(1) {
+        width: 232px;
+    }
+    .card .row-card p:nth-child(2) {
+        width: 100px;
+        text-align: right;
+    }
+
     .card .box-candidate-apply, .vr, form  {
         padding: 0 90px;
     }
@@ -262,5 +278,9 @@ main {
 
     .list-candidate tbody td {
         font-size: 18px;
+    }
+
+    .card-2 .box-description {
+        height: 110px;
     }
 }

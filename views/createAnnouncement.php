@@ -28,27 +28,33 @@
         <section class="cards">
 
             <article class="card">
-                <form action="" method="POST">
-                    <h1>Create Announcement</h1>
+                <h1>Create Announcement</h1>
+                <?php flash('announcement'); ?>
+                <form action="controllers/Announcements.php" method="POST">
+                    <input type="hidden" name="type" value="register">
                     <div class="input-card">
                         <label for="title">Title</label>
-                        <input id="title" type="text">
+                        <input id="title" type="text" name="title">
+                    </div>
+                    <div class="input-card">
+                        <label for="company_name">Company name</label>
+                        <input id="company_name" type="text" name="company_name">
                     </div>
                     <div class="input-card">
                         <label for="workplace">Workplace</label>
-                        <input id="workplace" type="text">
+                        <input id="workplace" type="text" name="workplace">
                     </div>
                     <div class="input-card">
                         <label for="schedule">Schedule</label>
-                        <input id="schedule" type="text">
+                        <input id="schedule" type="text" name="schedule">
                     </div>
                     <div class="input-card">
                         <label for="salary">Salary</label>
-                        <input id="salary" type="text">
+                        <input id="salary" type="text" name="salary">
                     </div>
                     <div class="input-card">
                         <label for="jobDescription">Job Description</label>
-                        <textarea id="jobDescription"></textarea>
+                        <textarea id="jobDescription" name="description"></textarea>
                     </div>
                     <div class="send-btn">
                         <button>Send</button>

@@ -4,11 +4,16 @@
     
     require_once 'layout/header.php';
     require_once 'Controllers/Helpers/session_helper.php';
+    require_once 'controllers/troque_chaine.php';
 
     require_once 'models/User.php';
+    require_once 'models/Announcement.php';
 
     $userModel = new User;
     $userInfo = $userModel->findUserInfoRecruiter($_SESSION['userId']);
+
+    $announcementModel = new Announcement;
+    $announcementInfo = $announcementModel->findAnnouncementInfo($_SESSION['userId']);
 
     if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 1) {
 ?>
@@ -35,6 +40,7 @@
 
             <article class="card">
                 <h1>Recruiter profile</h1>
+                <?php flash('profile'); ?>
                 <div id="profil">
                     <div class="row-card">
                         <?php if ($userInfo->Company_Name == null) : ?>
@@ -80,47 +86,40 @@
 
                 <section class="box-announcement">
                     <h2 class="title">Your announcement</h2>
-                    <div class="button-card-section">
-                        <button>Create announcement</button>
+                    <div class="nav-card-section">
+                        <a href="createAnnouncement.php">Create announcement</a>
                     </div>
+                    <?php
+                    if ($announcementInfo != null) {
+                     
+                        for ($i=0; $i < count($announcementInfo); $i++) { 
+                    ?> 
+                            <a href=<?="announcementDetails.php?announcement=".$announcementInfo[$i]->Id_Announcement?>>
+                                <article class="card-2">
+                                    <form action="" method="POST">
+                                        <?php if ($announcementInfo[$i]->Is_Checked == 0): ?>
+                                            <p>Waiting for validation</p>
+                                        <?php endif ?>
+                                        <h2><?=$announcementInfo[$i]->Title ?></h2>
+                                        <div class="row-card-2">
+                                            <p>Company : <?=$announcementInfo[$i]->Company_Name ?></p>
+                                            <p><?=$announcementInfo[$i]->Salary ?></p>
+                                        </div>
+                                        <div class="row-card-2">
+                                            <p><?=$announcementInfo[$i]->Workplace ?></p>
+                                            <p><?=$announcementInfo[$i]->Schedule ?></p>
+                                        </div>
+                                        <div class="box-description">
+                                            <p><?=tronque_chaine($announcementInfo[$i]->Description, 200) ?></p>
+                                        </div>
+                                    </form>
+                                </article>
+                            </a>
+                    <?php
+                        }
+                    }
+                    ?>
                     
-                    <a href="announcementDetails.php">
-                        <article class="card-2">
-                            <form action="" method="POST">
-                                <h2>Title</h2>
-                                <div class="row-card-2">
-                                    <p>company name</p>
-                                    <p>Salary</p>
-                                </div>
-                                <div class="row-card-2">
-                                    <p>workplace</p>
-                                    <p>schedule</p>
-                                </div>
-                                <div class="box-description">
-                                    <p>job description</p>
-                                </div>
-                            </form>
-                        </article>
-                    </a>
-
-                    <a href="announcementDetails.php">
-                        <article class="card-2">
-                            <form action="" method="POST">
-                                <h2>Title</h2>
-                                <div class="row-card-2">
-                                    <p>company name</p>
-                                    <p>Salary</p>
-                                </div>
-                                <div class="row-card-2">
-                                    <p>workplace</p>
-                                    <p>schedule</p>
-                                </div>
-                                <div class="box-description">
-                                    <p>job description</p>
-                                </div>
-                            </form>
-                        </article>
-                    </a>
                 </section>
             </article>
 

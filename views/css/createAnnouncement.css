@@ -134,7 +134,7 @@ main {
 
     .card {
         width: 567px;
-        height: 900px;
+        height: auto;
     }
 
     .card .input-card {

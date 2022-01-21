@@ -9,6 +9,19 @@ class User {
     public function __construct(){
         $this->db = new Database;
     }
+
+    public function UsersInfo(){
+        $this->db->query('SELECT * FROM users');
+
+        $row = $this->db->resultSet();
+
+        //Check row
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
     
     public function findUserInfoCandidate($id_user){
         $this->db->query('SELECT Email, Name, Lastname, Cv_Name  FROM users, candidates WHERE users.Id_User = :id_user and candidates.Id_User = :id_user');
@@ -111,20 +124,6 @@ class User {
         $hashedPassword = $row->Password;
         if(password_verify($password, $hashedPassword)){
             return $row;
-        }else{
-            return false;
-        }
-    }
-
-    //Reset Password
-    public function resetPassword($newPwdHash, $tokenEmail){
-        $this->db->query('UPDATE users SET users_pwd=:pwd WHERE users_email=:email');
-        $this->db->bind(':pwd', $newPwdHash);
-        $this->db->bind(':email', $tokenEmail);
-
-        //Execute
-        if($this->db->execute()){
-            return true;
         }else{
             return false;
         }

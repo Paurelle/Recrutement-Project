@@ -24,6 +24,20 @@
                 }
             }
         }
+
+        public function validateRecruiter() {
+            $row = $this->recruiterModel->recruiterCheck($_POST['id_user']);
+            if ($row) {
+                echo json_encode("validate");
+            }
+        }
+
+        public function refuseRecruiter() {
+            $row = $this->recruiterModel->recruiterDelete($_POST['id_user']);
+            if ($row) {
+                echo json_encode("refuse");
+            }
+        }
         
         public function modifyProfile()
         {
@@ -90,6 +104,12 @@
             break;
         case 'modify':
             $init->modifyProfile();
+            break;
+        case 'validateRecruiter':
+            $init->validateRecruiter();
+            break;
+        case 'refuseRecruiter':
+            $init->refuseRecruiter();
             break;
         default:
             redirect("../index.php");

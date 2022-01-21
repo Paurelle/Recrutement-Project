@@ -25,6 +25,50 @@ class Recruiter {
         }
     }
 
+    public function checkRecruiterValidation($userId)
+    {
+        $this->db->query('SELECT Is_Checked FROM recruiters WHERE Id_User = :userId');
+        $this->db->bind(':userId', $userId);
+
+        $row = $this->db->single();
+
+        //Check row
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+    public function recruiterCheck($userId)
+    {
+        $this->db->query('UPDATE recruiters set Is_Checked = :is_checked WHERE Id_User = :id_user');
+            //Bind values
+            $this->db->bind(':id_user', $userId);
+            $this->db->bind(':is_checked', 1);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        
+    }
+
+    public function recruiterDelete($userId) 
+    {
+        $this->db->query('DELETE FROM users WHERE Id_User = :id_user');
+            //Bind values
+            $this->db->bind(':id_user', $userId);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        
+    }
+
     //Find user by email or username
     public function findUserByEmail($email){
         $this->db->query('SELECT * FROM users WHERE Email = :email');

@@ -24,6 +24,20 @@
                 }
             }
         }
+
+        public function validateCandidate() {
+            $row = $this->candidateModel->candidateCheck($_POST['id_user']);
+            if ($row) {
+                echo json_encode("validate");
+            }
+        }
+
+        public function refuseCandidate() {
+            $row = $this->candidateModel->candidateDelete($_POST['id_user']);
+            if ($row) {
+                echo json_encode("refuse");
+            }
+        }
         
         public function modifyProfile()
         {
@@ -119,6 +133,12 @@
             break;
         case 'modify':
             $init->modifyProfile();
+            break;
+        case 'validateCandidate':
+            $init->validateCandidate();
+            break;
+        case 'refuseCandidate':
+            $init->refuseCandidate();
             break;
         default:
             redirect("../index.php");

@@ -6,5 +6,7 @@ function tronque_chaine ($chaine, $lg_max) {
         $last_space = strrpos($chaine, " ");
         $chaine = substr($chaine, 0, $last_space)."...";
         return $chaine;
+    }else{
+        return $chaine;
     }
 }

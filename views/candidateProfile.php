@@ -6,9 +6,14 @@
     require_once 'Controllers/Helpers/session_helper.php';
 
     require_once 'models/User.php';
+    require_once 'models/Candidate.php';
 
     $userModel = new User;
     $userInfo = $userModel->findUserInfoCandidate($_SESSION['userId']);
+
+    $candidateModel = new Candidate;
+    $candidateInfo = $candidateModel->checkCandidateValidation($_SESSION['userId']);
+    
 
     if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 2) {
 ?>
@@ -35,6 +40,10 @@
 
             <article class="card">
                 <h1>Candidate profile</h1>
+                <?php if ($candidateInfo->Is_Checked != 1) : ?>
+                    <p>Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>
+                <?php endif; ?>
+                
                 <?php flash('profile'); ?>
                 <div id="profil">
                     <div class="row-card">
@@ -43,6 +52,7 @@
                         <?php else : ?>
                             <h2><?=$userInfo->Name ." ". $userInfo->Lastname?></h2>
                         <?php endif; ?>
+
                         <div class="modify-btn">
                             <button onclick="display_form()">Modify</button>
                         </div>

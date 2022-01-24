@@ -5,6 +5,30 @@
     require_once 'layout/header.php';
 
     require_once 'controllers/troque_chaine.php';
+    require_once 'Controllers/Helpers/session_helper.php';
+
+    require_once 'models/User.php';
+    require_once 'models/Candidate.php';
+    require_once 'models/Applied_candidate.php';
+    require_once 'models/Announcement.php';
+
+    $userModel = new User;
+    $userInfo = $userModel->findUserInfoRecruiter($_SESSION['userId']);
+
+    $announcementModel = new Announcement;
+    $announcementInfo = $announcementModel->announcementsInfo();
+
+    if (isset($_SESSION['userId'])) {
+        $candidateModel = new Candidate;
+        $candidateInfo = $candidateModel->checkCandidateValidation($_SESSION['userId']);
+
+        $applied_candidateModel = new Applied_candidate;
+        $applied_candidateInfo = $applied_candidateModel->findApply($_SESSION['userId']);
+    }
+    
+
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="views/css/header/navbar.css">
     <link rel="stylesheet" href="views/css/home.css">
+    <script type="text/javascript" src="views/js/jquery-3.6.0.min.js"></script>
     
     <title>Home</title>
 </head>
@@ -27,117 +52,60 @@
 
         <h1>Announcement</h1>
 
-        <?php if (!isset($_SESSION['userId'])) : ?>
-            <p>non conecter</p>
-            
-            <?php else : ?>
-            <p>Welcome, <?php echo explode(" ", $_SESSION['userEmail'])[0];?></p>
-            <?= $_SESSION['userRole'] ?>
-            
-        <?php endif; ?>
-
         <section class="cards">
 
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
+            <?php
+                $announcements = 0;
+                if ($announcementInfo != null) {
+                    for ($i=0; $i < count($announcementInfo); $i++) { 
+                        $announcement = $announcementModel->checkAnnouncementValidation($announcementInfo[$i]->Id_Announcement);
 
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
-
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
-
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
-
-            <a href="announcementDetails.php">
-                <article class="card">
-                    <form action="" method="POST">
-                        <h2>Title</h2>
-                        <div class="row-card">
-                            <p>company name</p>
-                            <p>Salary</p>
-                        </div>
-                        <div class="row-card">
-                            <p>workplace</p>
-                            <p>schedule</p>
-                        </div>
-                        <div class="box-description">
-                            <p>job description</p>
-                        </div>
-                        <button>Apply</button>
-                    </form>
-                </article>
-            </a>
-
+                    if ($announcement->Is_Checked == 1) {
+                        $announcements++;
+            ?> 
+                        <a id=<?= 'announcement_'.$announcements?> href=<?="announcementDetails.php?announcement=".$announcementInfo[$i]->Id_Announcement?>>
+                            <article class="card">
+                                <h2><?=$announcementInfo[$i]->Title ?></h2>
+                                <div class="row-card">
+                                    <p>Company : <?=$announcementInfo[$i]->Company_Name ?></p>
+                                    <p><?=$announcementInfo[$i]->Salary ?></p>
+                                </div>
+                                <div class="row-card">
+                                    <p><?=tronque_chaine($announcementInfo[$i]->Workplace , 30)?></p>
+                                    <p><?=$announcementInfo[$i]->Schedule ?></p>
+                                </div>
+                                <div class="box-description">
+                                    <p><?=tronque_chaine($announcementInfo[$i]->Description, 200) ?></p>
+                                </div>
+                                <?php 
+                                $compteur = 0;
+                                    for ($j=0; $j < count($applied_candidateInfo); $j++) { 
+                                        if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 2 && $candidateInfo->Is_Checked == 1) {
+                                            if ($applied_candidateInfo[$j]->Id_Announcement == $announcementInfo[$i]->Id_Announcement) {
+                                                $compteur++;
+                                            }
+                                            
+                                        }
+                                    }
+                                    if ($compteur < 1) {
+                                ?>
+                                        <button class="apply-btn" onclick="apply(
+                                            '<?=$_SESSION['userEmail'] ?>',
+                                            '<?=$announcementInfo[$i]->Id_Announcement ?>'
+                                            )">
+                                            Apply
+                                        </button> 
+                                <?php
+                                    }
+                                ?>
+                            </article>
+                        </a>
+            <?php
+                        }
+                    }
+                }
+            ?>
+            
         </section>
     </main>
 
@@ -147,6 +115,7 @@
     </footer>
 
     <script src="views/js/btn-mobile.js"></script>
+    <script src="views/js/candidate_apply.js"></script>
 </body>
 </html>
 

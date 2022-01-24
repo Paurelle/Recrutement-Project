@@ -7,10 +7,14 @@
     require_once 'controllers/troque_chaine.php';
 
     require_once 'models/User.php';
+    require_once 'models/Recruiter.php';
     require_once 'models/Announcement.php';
 
     $userModel = new User;
     $userInfo = $userModel->findUserInfoRecruiter($_SESSION['userId']);
+
+    $recruiterModel = new Recruiter;
+    $validateRecruiter = $recruiterModel->checkRecruiterValidation($_SESSION['userId']);
 
     $announcementModel = new Announcement;
     $announcementInfo = $announcementModel->findAnnouncementInfo($_SESSION['userId']);
@@ -86,6 +90,9 @@
 
                 <section class="box-announcement">
                     <h2 class="title">Your announcement</h2>
+                    <?php if ($validateRecruiter->Is_Checked == 0) : ?>
+                        <p>Your account is awaiting validation to be able to post an announcement. In the meantime, the page is temporarily blocked.</p>
+                    <?php endif; ?>
                     <div class="nav-card-section">
                         <a href="createAnnouncement.php">Create announcement</a>
                     </div>

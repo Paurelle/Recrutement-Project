@@ -5,6 +5,11 @@
     require_once 'layout/header.php';
     require_once 'Controllers/Helpers/session_helper.php';
 
+    require_once 'models/Recruiter.php';
+
+    $recruiterModel = new Recruiter;
+    $validateRecruiter = $recruiterModel->checkRecruiterValidation($_SESSION['userId']);
+
     if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 1) {
 ?>
 
@@ -30,35 +35,43 @@
             <article class="card">
                 <h1>Create Announcement</h1>
                 <?php flash('announcement'); ?>
-                <form action="controllers/Announcements.php" method="POST">
-                    <input type="hidden" name="type" value="register">
-                    <div class="input-card">
-                        <label for="title">Title</label>
-                        <input id="title" type="text" name="title">
-                    </div>
-                    <div class="input-card">
-                        <label for="company_name">Company name</label>
-                        <input id="company_name" type="text" name="company_name">
-                    </div>
-                    <div class="input-card">
-                        <label for="workplace">Workplace</label>
-                        <input id="workplace" type="text" name="workplace">
-                    </div>
-                    <div class="input-card">
-                        <label for="schedule">Schedule</label>
-                        <input id="schedule" type="text" name="schedule">
-                    </div>
-                    <div class="input-card">
-                        <label for="salary">Salary</label>
-                        <input id="salary" type="text" name="salary">
-                    </div>
-                    <div class="input-card">
-                        <label for="jobDescription">Job Description</label>
-                        <textarea id="jobDescription" name="description"></textarea>
-                    </div>
-                    <div class="send-btn">
-                        <button>Send</button>
-                    </div>
+                <?php if ($validateRecruiter->Is_Checked == 1) { ?>
+                    <form action="controllers/Announcements.php" method="POST">
+                        <input type="hidden" name="type" value="register">
+                        <div class="input-card">
+                            <label for="title">Title</label>
+                            <input id="title" type="text" name="title">
+                        </div>
+                        <div class="input-card">
+                            <label for="company_name">Company name</label>
+                            <input id="company_name" type="text" name="company_name">
+                        </div>
+                        <div class="input-card">
+                            <label for="workplace">Workplace</label>
+                            <input id="workplace" type="text" name="workplace">
+                        </div>
+                        <div class="input-card">
+                            <label for="schedule">Schedule</label>
+                            <input id="schedule" type="text" name="schedule">
+                        </div>
+                        <div class="input-card">
+                            <label for="salary">Salary</label>
+                            <input id="salary" type="text" name="salary">
+                        </div>
+                        <div class="input-card">
+                            <label for="jobDescription">Job Description</label>
+                            <textarea id="jobDescription" name="description"></textarea>
+                        </div>
+                    
+                        <div class="send-btn">
+                            <button>Send</button>
+                        </div>
+                <?php
+                    }else{
+                        redirect("recruiterProfile.php");
+                    }
+                ?>
+                        
                 </form>
             </article>
 

@@ -57,7 +57,6 @@
                             <?php
                                 $rows = 0;
                                 for ($i=0; $i < count($usersInfo); $i++) { 
-                                    //var_dump($usersInfo[$i]) ;
                                     if ($usersInfo[$i]->Id_Role == 1 || $usersInfo[$i]->Id_Role == 2) {
 
                                         switch ($usersInfo[$i]->Id_Role) {

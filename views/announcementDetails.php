@@ -8,15 +8,34 @@
     require_once 'controllers/troque_chaine.php';
 
     require_once 'models/User.php';
+    require_once 'models/Candidate.php';
+    require_once 'models/Applied_candidate.php';
     require_once 'models/Announcement.php';
 
+    // prend l'id de lanonce
     $announcement = $_GET["announcement"];
-    $announcements = $_GET["announcements"];
+
+    // prend le le numero du l'anonce
+    if (!empty($_GET["announcements"])) {
+        $announcements = $_GET["announcements"];
+    }
 
     $announcementModel = new Announcement;
     $announcementInfo = $announcementModel->findAnnouncementInfoById($announcement);
 
-    if (isset($_SESSION['userId']) && $announcementInfo != null &&  $announcementInfo->Is_Checked == 0){
+    // test si l'anonce a deja etait valider par les admin ou consultant 
+    if ($announcementInfo->Is_Checked == 1 && $_SESSION['userRole'] == 3 || $_SESSION['userRole'] == 4) {
+        redirect("index.php");
+    }
+
+    // test si il y a une saission d'ouvert et que l'anonce et different de null
+    if (isset($_SESSION['userId']) && $announcementInfo != null){
+
+        $candidateModel = new Candidate;
+        $candidateInfo = $candidateModel->checkCandidateValidation($_SESSION['userId']);
+
+        $applied_candidateModel = new Applied_candidate;
+        $applied_candidateInfo = $applied_candidateModel->findApply($_SESSION['userId']);
        
 ?>
 
@@ -43,10 +62,10 @@
             <article class="card">
                 <h1>Announcement Detail</h1>
                 <form action="" method="POST">
-                    <?php if ($announcementInfo->Is_Checked == 0 && $_SESSION['userId'] == 1): ?>
+                    <?php if ($announcementInfo->Is_Checked == 0 && $_SESSION['userRole'] == 1): ?>
                         <p>Waiting for validation</p>
                         <?php 
-                            if ($announcementInfo->Id_Recruiter != $_SESSION['userId'] && $_SESSION['userId'] != 4 && $_SESSION['userId'] != 3) {
+                            if ($announcementInfo->Id_Recruiter != $_SESSION['userId'] && $_SESSION['userRole'] != 4 && $_SESSION['userRole'] != 3) {
                                 redirect("index.php");
                             }
                         ?>
@@ -63,9 +82,29 @@
                     <div class="box-description">
                         <p><?=$announcementInfo->Description ?></p>
                     </div>
-                    <?php if ($_SESSION['userRole'] == 2): ?>
-                        <button>Apply</button>
-                    <?php endif ?>
+                    <?php 
+                        if ($_SESSION['userRole'] == 2) {
+                            $compteur = 0;
+                                for ($j=0; $j < count($applied_candidateInfo); $j++) { 
+                                    if ($candidateInfo->Is_Checked == 1) {
+                                        if ($applied_candidateInfo[$j]->Id_Announcement == $announcement) {
+                                            $compteur++;
+                                        }
+                                        
+                                    }
+                                }
+                            if ($compteur < 1) {
+                    ?>
+                                <button class="apply-btn" onclick="apply(
+                                    '<?=$_SESSION['userEmail'] ?>',
+                                    '<?=$announcement ?>'
+                                    )">
+                                    Apply
+                                </button> 
+                    <?php
+                            }
+                        }
+                    ?>
                 </form>
 
                 <?php if ($_SESSION['userRole'] == 3 || $_SESSION['userRole'] == 4): ?>
@@ -84,6 +123,7 @@
                         </button>
                     </div>
                 <?php endif ?>
+
                 <?php if ($_SESSION['userRole'] == 1 && $announcementInfo->Id_Recruiter == $_SESSION['userId'] && $announcementInfo->Is_Checked == 1): ?>
                     <div class="box-candidate-apply">
                         <h2 class="title">Candidate who we apply</h2>
@@ -107,6 +147,7 @@
                         </div>
                     </div>
                 <?php endif ?>
+
             </article>
 
         </section>
@@ -119,12 +160,13 @@
 
     <script src="views/js/btn-mobile.js"></script>
     <script src="views/js/validate-announcement-btn.js"></script>
+    <script src="views/js/candidate_apply.js"></script>
 </body>
 </html>
 
 <?php
     }else{
-        redirect("index.php");
+        redirect("login.php");
     }
 
 

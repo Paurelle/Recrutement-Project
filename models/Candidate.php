@@ -12,7 +12,7 @@ class Candidate {
 
     public function displayProfile($userId)
     {
-        $this->db->query('SELECT Email, Name, Lastname, CV_Name FROM users, candidates WHERE candidates.Id_User = :userId AND users.Id_User = :userId ');
+        $this->db->query('SELECT Email, Name, Lastname, CV_Id, CV_Name FROM users, candidates WHERE candidates.Id_User = :userId AND users.Id_User = :userId ');
         $this->db->bind(':userId', $userId);
 
         $row = $this->db->single();

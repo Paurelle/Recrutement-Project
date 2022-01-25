@@ -38,7 +38,7 @@
             }
 
             if(strlen($data['password']) < 6){
-                flash("register", "Mot de passe incorrect");
+                flash("register", "Mot de passe incorrect, 7 caractères minunmuns");
                 redirect("../register.php");
             } else if($data['password'] !== $data['confirm-password']){
                 flash("register", "Les mots de passe ne correspondent pas");

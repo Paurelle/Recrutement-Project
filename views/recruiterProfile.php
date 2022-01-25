@@ -113,7 +113,7 @@
                                             <p><?=$announcementInfo[$i]->Salary ?></p>
                                         </div>
                                         <div class="row-card-2">
-                                            <p><?=$announcementInfo[$i]->Workplace ?></p>
+                                            <p><?=tronque_chaine($announcementInfo[$i]->Workplace , 30)?></p>
                                             <p><?=$announcementInfo[$i]->Schedule ?></p>
                                         </div>
                                         <div class="box-description">

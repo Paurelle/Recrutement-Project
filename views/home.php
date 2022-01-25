@@ -12,23 +12,21 @@
     require_once 'models/Applied_candidate.php';
     require_once 'models/Announcement.php';
 
-    $userModel = new User;
-    $userInfo = $userModel->findUserInfoRecruiter($_SESSION['userId']);
+    
 
     $announcementModel = new Announcement;
     $announcementInfo = $announcementModel->announcementsInfo();
 
     if (isset($_SESSION['userId'])) {
+        $userModel = new User;
+        $userInfo = $userModel->findUserInfoRecruiter($_SESSION['userId']);
+
         $candidateModel = new Candidate;
         $candidateInfo = $candidateModel->checkCandidateValidation($_SESSION['userId']);
 
         $applied_candidateModel = new Applied_candidate;
         $applied_candidateInfo = $applied_candidateModel->findApply($_SESSION['userId']);
     }
-    
-
-    
-    
 ?>
 
 <!DOCTYPE html>
@@ -78,24 +76,45 @@
                                     <p><?=tronque_chaine($announcementInfo[$i]->Description, 200) ?></p>
                                 </div>
                                 <?php 
-                                $compteur = 0;
-                                    for ($j=0; $j < count($applied_candidateInfo); $j++) { 
-                                        if (isset($_SESSION['userId']) && $_SESSION['userRole'] == 2 && $candidateInfo->Is_Checked == 1) {
-                                            if ($applied_candidateInfo[$j]->Id_Announcement == $announcementInfo[$i]->Id_Announcement) {
-                                                $compteur++;
+                                
+                                    // test si il y a une session d'ouvert
+                                    if (isset($_SESSION['userId'])) {
+                                         // test si la session a pour role candidat
+                                        if ($_SESSION['userRole'] == 2) {
+                                        $compteur = 0;
+                                        // test si la candidate a 
+                                        if (!empty($applied_candidateInfo)) {
+                                            for ($j=0; $j < count($applied_candidateInfo); $j++) { 
+                                                if (isset($_SESSION['userId']) && $candidateInfo->Is_Checked == 1) {
+                                                    if ($applied_candidateInfo[$j]->Id_Announcement == $announcementInfo[$i]->Id_Announcement) {
+                                                        echo 'Deja postuler';
+                                                        $compteur++;
+                                                    }
+                                                }
                                             }
-                                            
                                         }
-                                    }
-                                    if ($compteur < 1) {
+                                            // test si le candidat a etait valider 
+                                            if ($candidateInfo->Is_Checked == 1) {
+                                                $candidate = $candidateModel->displayProfile($_SESSION['userId']);
+                                                // test si le profil du candidat a etait ajouter
+                                                if ($candidate->Name != NULL && $candidate->Lastname != NULL && $candidate->CV_Name != NULL) {
+                                                    if ($compteur < 1) {
                                 ?>
-                                        <button class="apply-btn" onclick="apply(
-                                            '<?=$_SESSION['userEmail'] ?>',
-                                            '<?=$announcementInfo[$i]->Id_Announcement ?>'
-                                            )">
-                                            Apply
-                                        </button> 
+                                                        <button class="apply-btn" onclick="apply(
+                                                            '<?=$_SESSION['userEmail'] ?>',
+                                                            '<?=$announcementInfo[$i]->Id_Announcement ?>'
+                                                            )">
+                                                            Apply
+                                                        </button> 
                                 <?php
+                                                    }
+                                                }else{
+                                                    echo '<p>Complete your profile to be able to apply for an announcement</p>';
+                                                }
+                                            }else{
+                                                echo '<p>Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>';
+                                            }
+                                        }
                                     }
                                 ?>
                             </article>

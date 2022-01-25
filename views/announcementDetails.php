@@ -85,26 +85,43 @@
                     <?php 
                         if ($_SESSION['userRole'] == 2) {
                             $compteur = 0;
+                            // test si la candidate a 
+                            if (!empty($applied_candidateInfo)) {
                                 for ($j=0; $j < count($applied_candidateInfo); $j++) { 
-                                    if ($candidateInfo->Is_Checked == 1) {
+                                    if (isset($_SESSION['userId']) && $candidateInfo->Is_Checked == 1) {
                                         if ($applied_candidateInfo[$j]->Id_Announcement == $announcement) {
+                                            echo 'Deja postuler';
                                             $compteur++;
                                         }
-                                        
                                     }
                                 }
-                            if ($compteur < 1) {
+                            }
+                                
+                            // test si le candidat a etait valider 
+                            if ($candidateInfo->Is_Checked == 1) {
+                                $candidate = $candidateModel->displayProfile($_SESSION['userId']);
+                                // test si le profil du candidat a etait ajouter
+                                if ($candidate->Name != NULL && $candidate->Lastname != NULL && $candidate->CV_Name != NULL) {
+                                    if ($compteur < 1) {
                     ?>
-                                <button class="apply-btn" onclick="apply(
-                                    '<?=$_SESSION['userEmail'] ?>',
-                                    '<?=$announcement ?>'
-                                    )">
-                                    Apply
-                                </button> 
+                                    <button class="apply-btn" onclick="apply(
+                                        '<?=$_SESSION['userEmail'] ?>',
+                                        '<?=$announcement ?>'
+                                        )">
+                                        Apply
+                                    </button> 
                     <?php
+                                    }
+                                }else{
+                                    echo '<p>Complete your profile to be able to apply for an announcement</p>';
+                                }
+                            }else{
+                                echo '<p>Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>';
                             }
                         }
+                        
                     ?>
+                    
                 </form>
 
                 <?php if ($_SESSION['userRole'] == 3 || $_SESSION['userRole'] == 4): ?>
@@ -137,11 +154,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="td-name">paurellepaurellepaurellepaurelle</td>
-                                        <td class="td-lastname">paurellepaurellepaurellepaurelle</td>
-                                        <td class="td-cv"><button>Download</button></td>
-                                    </tr>
+                                    <?php 
+                                        if ($announcementInfo->Id_Recruiter == $_SESSION['userId']) {
+                                            $recruiterInfo = $applied_candidateModel->findApplyByAnnouncement($announcementInfo->Id_Announcement);
+                                            if ($recruiterInfo) {
+                                                for ($i=0; $i < count($recruiterInfo); $i++) { 
+                                                    if ($recruiterInfo[$i]->Is_Checked == 1) {
+                                                        $candidate = $candidateModel->displayProfile($recruiterInfo[$i]->Id_Candidate);
+                                    ?>
+                                                        <tr>
+                                                            <td class="td-name"><?=$candidate->Name?></td>
+                                                            <td class="td-lastname"><?=$candidate->Lastname?></td>
+                                                            <td class="td-cv"><a href="filesCV/" download=<?=$candidate->CV_Id?>>Download</a></td>
+                                                        </tr>
+                                    <?php
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -161,6 +193,7 @@
     <script src="views/js/btn-mobile.js"></script>
     <script src="views/js/validate-announcement-btn.js"></script>
     <script src="views/js/candidate_apply.js"></script>
+    <script src="views/js/download.js"></script>
 </body>
 </html>
 

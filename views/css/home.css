@@ -65,10 +65,11 @@ h1 {
 }
 
 .card .box-description {
-    text-align: center;
+    text-align: left;
     width: 100%;
+    border-top: 1px solid black;
+    padding: 5px 0 0 0;
     height: 135px;
-    background: rgb(216, 216, 216);
     margin: 0 0 10px 0;
 }
 
@@ -89,6 +90,33 @@ h1 {
 
 .card button:hover {
     background: #164081;
+}
+
+.form-message-red{
+    text-align: center;
+    color: red;
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px red solid;
+    border-radius: 6px;
+    margin: 0 0 20px;
+}
+
+.form-message-yellow{
+    text-align: center;
+    color: #ff9900;
+    background: #ff99001f;
+    border: 1px #ff9900 solid;
+    border-radius: 6px;
+    margin: 0 0 20px;
+}
+
+.form-message-green{
+    text-align: center;
+    color: #197e00;
+    background: #197e0020;
+    border: 1px #197e00 solid;
+    border-radius: 6px;
+    margin: 0 0 20px;
 }
 
 @media (min-width: 600px) {
@@ -121,5 +149,32 @@ h1 {
     h1 {
         font-size: 64px;
         margin: 20px 0 110px 0;
+    }
+
+    .form-message-red{
+        text-align: center;
+        color: red;
+        background: rgba(255, 0, 0, 0.2);
+        border: 1px red solid;
+        border-radius: 6px;
+        margin: 0 90px 20px;
+    }
+    
+    .form-message-yellow{
+        text-align: center;
+        color: #ff9900;
+        background: #ff99001f;
+        border: 1px #ff9900 solid;
+        border-radius: 6px;
+        margin: 0 90px 20px;
+    }
+
+    .form-message-green{
+        text-align: center;
+        color: #197e00;
+        background: #197e0020;
+        border: 1px #197e00 solid;
+        border-radius: 6px;
+        margin: 0 90px 20px;
     }
 }

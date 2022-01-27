@@ -28,7 +28,7 @@
             // Validate inputs
             if (empty($data['email']) || empty($data['password']) ||
             empty($data['confirm-password']) || empty($data['role'])) {
-                flash("register", "Veuillez remplir toutes les entrées");
+                flash("register", "Please complete all entries");
                 redirect("../register.php");
             }
 
@@ -38,16 +38,16 @@
             }
 
             if(strlen($data['password']) < 6){
-                flash("register", "Mot de passe incorrect, 7 caractères minunmuns");
+                flash("register", "Invalid password, 7 characters minimum");
                 redirect("../register.php");
             } else if($data['password'] !== $data['confirm-password']){
-                flash("register", "Les mots de passe ne correspondent pas");
+                flash("register", "Passwords do not match");
                 redirect("../register.php");
             }
 
             //User with the same email or password already exists
             if($this->userModel->findUserByEmail($data['email'])){
-                flash("register", "Nom d'utilisateur ou email déjà pris");
+                flash("register", "Username or email already taken");
                 redirect("../register.php");
             }
 
@@ -69,7 +69,7 @@
                     }
                 }
                 else {
-                    flash("register", "Une erreur c produit !");
+                    flash("register", "An error has occurred");
                     redirect("../login.php");
                 }
                 
@@ -90,7 +90,7 @@
             ];
     
             if(empty($data['email']) || empty($data['password'])){
-                flash("login", "Veuillez remplir toutes les entrées");
+                flash("login", "Please complete all entries");
                 redirect("../login.php");
                 
             }
@@ -103,11 +103,11 @@
                     //Create session
                     $this->createUserSession($loggedInUser);
                 }else{
-                    flash("login", "Mot de passe incorrect");
+                    flash("login", "incorrect password");
                     redirect("../login.php");
                 }
             }else{
-                flash("login", "Aucun utilisateur trouvé");
+                flash("login", "No users found");
                 redirect("../login.php");
             }
         }

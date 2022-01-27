@@ -46,7 +46,7 @@
                         <input id="confirm-password" type="password" name="confirm-password">
                     </div>
                     <div class="register-btn">
-                        <button>Send</button>
+                        <button type="submit">Send</button>
                     </div>
                 </form>
             </article>

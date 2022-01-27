@@ -60,7 +60,7 @@
             // Validate inputs
             if (empty($data['name']) || empty($data['lastname']) ||
             empty($data['email']) || empty($data['cv']['name'])) {
-                flash("profile", "Veuillez remplir toutes les entrées");
+                flash("profile", "Please complete all entries");
                 redirect("../candidateProfile.php");
             }
 
@@ -81,18 +81,18 @@
 
             //User with the same email or password already exists
             if($this->candidateModel->findUserByEmail($data['email']) && $data['email'] != $_SESSION['userEmail']){
-                flash("profile", "Email déjà pris");
+                flash("profile", "Email already taken");
                 redirect("../candidateProfile.php");
             }
 
             // You should also check filesize here.
             if ($data['cv']['size'] > 1000000) {
-                flash("profile", "la taille du cv et tro volumineu");
+                flash("profile", "The size of the CV and too voluminous");
                 redirect("../candidateProfile.php");
             }
 
             if (substr(strrchr($data['cv']['name'],'.'),1) != "pdf") {
-                flash("profile", "se nest pas le bon forma 'pdf'");
+                flash("profile", "it must be in 'pdf' format");
                 redirect("../candidateProfile.php");
             }
 
@@ -104,7 +104,7 @@
             $file_tmp_name = $data['cv']['tmp_name'];
             $file_dest = '../filesCv/'.$fileNameId;
             if (!move_uploaded_file($file_tmp_name, $file_dest)) {
-                flash("profile", "une erreur c produit");
+                flash("profile", "An error has occurred");
                 redirect("../candidateProfile.php");
             }
 
@@ -116,7 +116,6 @@
 
             //Register User
             if($this->candidateModel->updateProfile($data)){
-                flash("profile", "is good");
                 redirect("../candidateProfile.php");
             }else{
                 die("Something went wrong");

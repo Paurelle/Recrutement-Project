@@ -87,7 +87,7 @@
                                             for ($j=0; $j < count($applied_candidateInfo); $j++) { 
                                                 if (isset($_SESSION['userId']) && $candidateInfo->Is_Checked == 1) {
                                                     if ($applied_candidateInfo[$j]->Id_Announcement == $announcementInfo[$i]->Id_Announcement) {
-                                                        echo 'Deja postuler';
+                                                        echo '<p class="form-message-green">You have already applied</p>';
                                                         $compteur++;
                                                     }
                                                 }
@@ -109,10 +109,10 @@
                                 <?php
                                                     }
                                                 }else{
-                                                    echo '<p>Complete your profile to be able to apply for an announcement</p>';
+                                                    echo '<p class="form-message-yellow">Complete your profile to be able to apply for an announcement</p>';
                                                 }
                                             }else{
-                                                echo '<p>Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>';
+                                                echo '<p class="form-message-yellow">Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>';
                                             }
                                         }
                                     }

@@ -41,7 +41,7 @@
             <article class="card">
                 <h1>Candidate profile</h1>
                 <?php if ($candidateInfo->Is_Checked != 1) : ?>
-                    <p>Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>
+                    <p class="form-message-yellow">Your account is awaiting validation to be able to register for the announcement. In the meantime, the announcement is temporarily blocked.</p>
                 <?php endif; ?>
                 
                 <?php flash('profile'); ?>

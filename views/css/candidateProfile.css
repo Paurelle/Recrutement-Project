@@ -101,6 +101,25 @@ main {
     background: #164081;
 }
 
+.form-message-red{
+    text-align: center;
+    color: red;
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px red solid;
+    border-radius: 6px;
+    margin: 0 0 20px;
+}
+
+.form-message-yellow{
+    text-align: center;
+    color: #ff9900;
+    background: #ff99001f;
+    border: 1px #ff9900 solid;
+    border-radius: 6px;
+    margin: 0 0 20px;
+}
+
+
 @media (min-width: 600px) {
 
     main {
@@ -182,6 +201,14 @@ main {
         width: 96px;
         height: 30px;
         font-size: 18px;
+    }
+
+    .form-message-red{
+        margin: 0 90px 20px;
+    }
+
+    .form-message-yellow{
+        margin: 0 90px 20px;
     }
     
 }

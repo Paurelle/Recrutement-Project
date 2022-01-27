@@ -49,7 +49,7 @@
             if (empty($data['title']) || empty($data['company_name']) ||
             empty($data['workplace']) || empty($data['schedule']) || 
             empty($data['salary'] || empty($data['description']))) {
-                flash("announcement", "Veuillez remplir toutes les entrées");
+                flash("announcement", "Please complete all entries");
                 redirect("../createAnnouncement.php");
             }
 
@@ -86,7 +86,7 @@
 
             //Register User
             if($this->AnnouncementModel->register($data)){
-                flash("profile", "Announcement has been added");
+                flash("profile", "Announcement has been added", "form-message-green");
                 redirect("../recruiterProfile.php");
             }else{
                 die("Something went wrong");

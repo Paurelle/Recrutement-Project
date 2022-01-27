@@ -57,7 +57,7 @@
             // Validate inputs
             if (empty($data['company_name']) || empty($data['company_address']) ||
             empty($data['email'])) {
-                flash("profile", "Veuillez remplir toutes les entrées");
+                flash("profile", "Please complete all entries");
                 redirect("../recruiterProfile.php");
             }
 
@@ -78,7 +78,7 @@
 
             //User with the same email or password already exists
             if($this->recruiterModel->findUserByEmail($data['email']) && $data['email'] != $_SESSION['userEmail']){
-                flash("profile", "Email déjà pris");
+                flash("profile", "Email already taken");
                 redirect("../recruiterProfile.php");
             }
 
@@ -87,7 +87,6 @@
 
             //Register User
             if($this->recruiterModel->updateProfile($data)){
-                flash("profile", "is good");
                 redirect("../recruiterProfile.php");
             }else{
                 die("Something went wrong");

@@ -91,7 +91,7 @@
                 <section class="box-announcement">
                     <h2 class="title">Your announcement</h2>
                     <?php if ($validateRecruiter->Is_Checked == 0) : ?>
-                        <p>Your account is awaiting validation to be able to post an announcement. In the meantime, the page is temporarily blocked.</p>
+                        <p class="form-message-yellow">Your account is awaiting validation to be able to post an announcement. In the meantime, the page is temporarily blocked.</p>
                     <?php endif; ?>
                     <div class="nav-card-section">
                         <a href="createAnnouncement.php">Create announcement</a>
@@ -105,7 +105,7 @@
                                 <article class="card-2">
                                     <form action="" method="POST">
                                         <?php if ($announcementInfo[$i]->Is_Checked == 0): ?>
-                                            <p>Waiting for validation</p>
+                                            <p class="form-message-yellow">Waiting for validation</p>
                                         <?php endif ?>
                                         <h2><?=$announcementInfo[$i]->Title ?></h2>
                                         <div class="row-card-2">

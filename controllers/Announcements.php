@@ -74,7 +74,7 @@
                 redirect("../createAnnouncement.php");
             }
 
-            if(!preg_match("/^[\$\sa-zA-Z0-9éèçàê.,-]*$/", $data['salary']) || strlen($data['salary']) >= 100){
+            if(!preg_match("/^[\$\€\sa-zA-Z0-9éèçàê.,-]*$/", $data['salary']) || strlen($data['salary']) >= 100){
                 flash("announcement", "Invalid salary");
                 redirect("../createAnnouncement.php");
             }

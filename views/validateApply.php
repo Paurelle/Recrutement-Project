@@ -59,38 +59,40 @@
                             <tbody>
                             <?php
                                 $rows = 0;
-                                for ($i=0; $i < count($applied_candidateInfo); $i++) { 
-                                    if ($applied_candidateInfo[$i]->Is_Checked == 0) {
-                                        $candidate = $candidateModel->displayProfile($applied_candidateInfo[$i]->Id_Candidate);
-                                        $announcement = $announcementModel->findAnnouncementInfoById($applied_candidateInfo[$i]->Id_Announcement);
-                                        $rows++;
+                                if ($applied_candidateInfo != null) {
+                                
+                                    for ($i=0; $i < count($applied_candidateInfo); $i++) { 
+                                        if ($applied_candidateInfo[$i]->Is_Checked == 0) {
+                                            $candidate = $candidateModel->displayProfile($applied_candidateInfo[$i]->Id_Candidate);
+                                            $announcement = $announcementModel->findAnnouncementInfoById($applied_candidateInfo[$i]->Id_Announcement);
+                                            $rows++;
                             ?>
-                                        <tr id=<?= 'row_'.$rows?>>
-                                            <td class="td-name"><?=$candidate->Name?></td>
-                                            <td class="td-lastname"><?=$candidate->Lastname?></td>
-                                            <td class="td-cname"><?=$announcement->Company_Name?></td>
-                                            <td class="td-action">
-                                                <div class="row-card">
-                                                    <button class="validate-btn" onclick="validate(
-                                                        '<?='row_'.$rows ?>',
-                                                        '<?=$applied_candidateInfo[$i]->Id_Candidate ?>',
-                                                        '<?=$applied_candidateInfo[$i]->Id_Announcement ?>'
-                                                        )">
-                                                        Validate
-                                                    </button>
-                                                    <button class="refuse-btn" onclick="refuse(
-                                                        '<?='row_'.$rows ?>',
-                                                        '<?=$applied_candidateInfo[$i]->Id_Candidate ?>',
-                                                        '<?=$applied_candidateInfo[$i]->Id_Announcement ?>'
-                                                        )">
-                                                        Refuse
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr id=<?= 'row_'.$rows?>>
+                                                <td class="td-name"><?=$candidate->Name?></td>
+                                                <td class="td-lastname"><?=$candidate->Lastname?></td>
+                                                <td class="td-cname"><?=$announcement->Company_Name?></td>
+                                                <td class="td-action">
+                                                    <div class="row-card">
+                                                        <button class="validate-btn" onclick="validate(
+                                                            '<?='row_'.$rows ?>',
+                                                            '<?=$applied_candidateInfo[$i]->Id_Candidate ?>',
+                                                            '<?=$applied_candidateInfo[$i]->Id_Announcement ?>'
+                                                            )">
+                                                            Validate
+                                                        </button>
+                                                        <button class="refuse-btn" onclick="refuse(
+                                                            '<?='row_'.$rows ?>',
+                                                            '<?=$applied_candidateInfo[$i]->Id_Candidate ?>',
+                                                            '<?=$applied_candidateInfo[$i]->Id_Announcement ?>'
+                                                            )">
+                                                            Refuse
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                             <?php 
+                                        }
                                     }
-                                    
                                 }
                             ?>
                                 

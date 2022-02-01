@@ -1,5 +1,7 @@
 
 <?php
+
+
     require_once 'links/links.php';
 
     require_once 'layout/header.php';
@@ -36,7 +38,8 @@
 
         $applied_candidateModel = new Applied_candidate;
         $applied_candidateInfo = $applied_candidateModel->findApply($_SESSION['userId']);
-       
+        
+
 ?>
 
 <!DOCTYPE html>
@@ -165,9 +168,10 @@
                                                         <tr>
                                                             <td class="td-name"><?=$candidate->Name?></td>
                                                             <td class="td-lastname"><?=$candidate->Lastname?></td>
-                                                            <td class="td-cv"><a href="filesCV/" download=<?=$candidate->CV_Id?>>Download</a></td>
+                                                            <td class="td-cv"><a href="controllers/downloadCv.php?name=<?=$candidate->CV_Id?>" >Download</a></td>
                                                         </tr>
-                                    <?php
+                                                        
+                                    <?php               
                                                     }
                                                 }
                                             }
@@ -193,7 +197,6 @@
     <script src="views/js/btn-mobile.js"></script>
     <script src="views/js/validate-announcement-btn.js"></script>
     <script src="views/js/candidate_apply.js"></script>
-    <script src="views/js/download.js"></script>
 </body>
 </html>
 
@@ -202,7 +205,7 @@
         redirect("login.php");
     }
 
-
+    
 
 
 
